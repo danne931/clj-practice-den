@@ -51,3 +51,11 @@
          (= expected (dot-product seqA seqB))
          32 [1 2 3] [4 5 6]
          256 [2 5 6] [100 10 1])))
+
+(deftest test-flat
+  (testing "Flatten a sequence."
+    (are [expected coll]
+         (= expected (flat coll))
+         '(1 2 3 4 5 6) '((1 2) 3 [4 [5 6]])
+         '("a" "b" "c") ["a" ["b"] "c"]
+          '(:a) '((((:a)))))))
