@@ -52,3 +52,28 @@
   (->> seqA
        (map-indexed #(* %2 (get seqB %1)))
        (reduce +)))
+
+; Remove consecutive duplicates from a sequence.
+(defn remove-consecutive-dupes
+  [coll]
+  (reduce
+    (fn [acc k]
+      (if (= k (last acc))
+        acc
+        (conj acc k)))
+    []
+    coll))
+
+; Replicates each element of a sequence n times.
+(defn replicate-each
+  [coll n]
+  (reduce #(into %1 (take n (repeat %2))) [] coll))
+
+; Creates a list of integers in a range.
+(defn int-range
+  [lower-bound upper-bound]
+  (let [coll-size (- upper-bound lower-bound)
+        increment (fn [start-counter]
+                    (let [state (atom (dec start-counter))]
+                      #(swap! state inc)))]
+    (repeatedly coll-size (increment lower-bound))))

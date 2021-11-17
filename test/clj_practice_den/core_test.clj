@@ -59,3 +59,29 @@
          '(1 2 3 4 5 6) '((1 2) 3 [4 [5 6]])
          '("a" "b" "c") ["a" ["b"] "c"]
           '(:a) '((((:a)))))))
+
+(deftest test-remove-consecutive-dupes
+  (testing "Remove consecutive dupes in a sequence."
+    (are [expected coll]
+         (= expected (remove-consecutive-dupes coll))
+         [1 2 3 4] [1 1 1 2 3 3 4 4]
+         '([1 2] [3 4] 5 6) '([1 2] [1 2] [1 2] [3 4] [3 4] 5 5 6)))
+  (testing "Remove consecutive dupes works for strings."
+    (is (= "Dan"
+           (apply str (remove-consecutive-dupes "DDDaaaaannnn"))))))
+
+(deftest test-replicate-each
+  (testing "Replicate each element n times."
+    (are [expected coll n]
+         (= expected (replicate-each coll n))
+         [1 1 1 2 2 2] [1 2] 3
+         [1 2 3] [1 2 3] 1
+         [["a" "b"] ["a" "b"] ["c" "d"] ["c" "d"]] [["a" "b"] ["c" "d"]] 2)))
+
+(deftest test-int-range
+  (testing "Create a list of integers in a range."
+    (are [expected lower-bound upper-bound]
+         (= expected (int-range lower-bound upper-bound))
+         [-2 -1 0 1] -2 2
+         [0 1 2 3] 0 4)))
+
