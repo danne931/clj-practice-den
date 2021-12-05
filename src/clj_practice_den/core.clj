@@ -48,9 +48,9 @@
 ; Computes the dot product of two sequences, assuming the vectors
 ; have the same length.
 (defn dot-product
-  [seqA seqB]
-  (->> seqA
-       (map-indexed #(* %2 (get seqB %1)))
+  [seq-a seq-b]
+  (->> seq-a
+       (map-indexed #(* %2 (get seq-b %1)))
        (reduce +)))
 
 ; Remove consecutive duplicates from a sequence.
@@ -77,3 +77,14 @@
                     (let [state (atom (dec start-counter))]
                       #(swap! state inc)))]
     (repeatedly coll-size (increment lower-bound))))
+
+; From 2 sequences, take the 1st item of each, then the 2nd & so on.
+(defn core-interleave
+  [seq-a seq-b]
+  (->> seq-a
+       (map-indexed
+         (fn [index item-a]
+           (if-let [item-b (get seq-b index)]
+              (list item-a item-b)
+              [])))
+       flatten))

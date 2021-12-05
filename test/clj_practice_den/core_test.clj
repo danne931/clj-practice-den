@@ -47,8 +47,8 @@
 
 (deftest test-dot-product
   (testing "Compute the dot product of 2 sequences."
-    (are [expected seqA seqB]
-         (= expected (dot-product seqA seqB))
+    (are [expected seq-a seq-b]
+         (= expected (dot-product seq-a seq-b))
          32 [1 2 3] [4 5 6]
          256 [2 5 6] [100 10 1])))
 
@@ -85,3 +85,11 @@
          [-2 -1 0 1] -2 2
          [0 1 2 3] 0 4)))
 
+(deftest test-core-interleave
+  (testing "Interleave 2 sequences."
+    (are [expected seq-a seq-b]
+         (= expected (core-interleave seq-a seq-b))
+         [1 3 2 4] [1 2] [3 4]
+         [1 3 2 4] [1 2] [3 4 5 6]
+         [1 3] [1] [3 4 5 6]
+         [1 3] [1 2] [3])))
