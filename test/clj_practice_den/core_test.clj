@@ -54,6 +54,23 @@
                       (+ a b c d))))))
             1 2 3 4)))))
 
+(deftest test-de-curry-v2
+  (testing "Flatten the curry. Implemention (2) loop/recur"
+    (is (= 25
+           ((core/de-curry-v2
+              (fn [a]
+                (fn [b]
+                  (* a b))))
+            5 5)))
+    (is (= 10
+           ((core/de-curry-v2
+              (fn [a]
+                (fn [b]
+                  (fn [c]
+                    (fn [d]
+                      (+ a b c d))))))
+            1 2 3 4)))))
+
 (deftest test-dot-product
   (testing "Compute the dot product of 2 sequences."
     (are [expected seq-a seq-b]

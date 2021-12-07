@@ -49,11 +49,21 @@
 ; equivalent function of n arguments.
 (defn de-curry
   [curried-fn]
-  (fn [& args]
-    (let [curry (curried-fn (first args))]
+  (fn [item & remaining]
+    (let [curry (curried-fn item)]
       (if (fn? curry)
-        (apply (de-curry curry) (rest args))
+        (apply (de-curry curry) remaining)
         curry))))
+
+; Restrictions: Take advantage of tail call optimization with loop/recur
+(defn de-curry-v2
+  [initial-curried-fn]
+  (fn [& args]
+    (loop [[item & remaining] args
+           curried-fn initial-curried-fn]
+      (if (empty? remaining)
+        (curried-fn item)
+        (recur remaining (curried-fn item))))))
 
 ; Flattens a sequence.
 ; Restrictions: flatten
