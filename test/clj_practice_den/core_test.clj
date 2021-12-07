@@ -28,6 +28,15 @@
          2 [1 2 3 4] 1
          [5 6] '([1 2] [3 4] [5 6]) 2)))
 
+(deftest test-nth-v3
+  (testing "Get the nth element of a sequence. Implementation (3)"
+    (are [expected coll n]
+         (= expected (core/nth-v3 coll n))
+         6 '(4 5 6 7) 2
+         :a [:a :b :c] 0
+         2 [1 2 3 4] 1
+         [5 6] '([1 2] [3 4] [5 6]) 2)))
+
 (deftest test-de-curry
   (testing "Flatten the curry."
     (is (= 25

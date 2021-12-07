@@ -15,7 +15,7 @@
     (last (take (inc n) coll))))
 
 ; Returns the nth element from a sequence.
-; Restrictions: nth, last, first, take, drop
+; Restrictions: Use state
 (defn nth-v2
   [coll n]
   (when (<= 0 n (dec (count coll)))
@@ -25,6 +25,18 @@
            (do (swap! ind inc) nil)
            %)
         coll))))
+
+; Returns the nth element in a sequence.
+; Restrictions: Use loop
+(defn nth-v3
+  [coll n]
+  (loop [[item & remaining] coll
+         ind 0]
+    (if (= ind n)
+      item
+      (if (= ind (dec (count coll)))
+        nil
+        (recur remaining (inc ind))))))
 
 ; Keep every nth item of a sequence.
 (defn keep-every-nth
