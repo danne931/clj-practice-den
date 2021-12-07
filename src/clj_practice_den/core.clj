@@ -3,20 +3,20 @@
 
 ; Returns the last element in a sequence.
 ; Restrictions: last
-(defn get-last
+(defn x-last
   [coll]
   (nth coll (dec (count coll))))
 
 ; Returns the nth element from a sequence.
 ; Restrictions: nth
-(defn get-nth
+(defn x-nth
   [coll n]
   (when (<= 0 n (dec (count coll)))
     (last (take (inc n) coll))))
 
 ; Returns the nth element from a sequence.
 ; Restrictions: nth, last, first, take, drop
-(defn get-nth-v2
+(defn nth-v2
   [coll n]
   (when (<= 0 n (dec (count coll)))
     (let [ind (atom 0)]
@@ -45,7 +45,7 @@
 
 ; Flattens a sequence.
 ; Restrictions: flatten
-(defn flat
+(defn x-flatten
   [coll]
   (->> coll
        (tree-seq sequential? identity)
@@ -77,7 +77,7 @@
   (reduce #(into %1 (take n (repeat %2))) [] coll))
 
 ; Creates a list of integers in a range.
-(defn int-range
+(defn x-range
   [lower-bound upper-bound]
   (let [coll-size (- upper-bound lower-bound)
         increment (fn [start-counter]
@@ -86,7 +86,8 @@
     (repeatedly coll-size (increment lower-bound))))
 
 ; From 2 sequences, take the 1st item of each, then the 2nd & so on.
-(defn core-interleave
+; Restrictions: interleave
+(defn x-interleave
   [seq-a seq-b]
   (->> seq-a
        (map-indexed
