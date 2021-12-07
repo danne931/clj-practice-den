@@ -90,9 +90,8 @@
 (defn x-interleave
   [seq-a seq-b]
   (->> seq-a
-       (map-indexed
+       (keep-indexed
          (fn [index item-a]
-           (if-let [item-b (get seq-b index)]
-              (list item-a item-b)
-              [])))
+           (when-let [item-b (get seq-b index)]
+              (list item-a item-b))))
        flatten))
