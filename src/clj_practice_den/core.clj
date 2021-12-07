@@ -26,6 +26,13 @@
            %)
         coll))))
 
+; Keep every nth item of a sequence.
+(defn keep-every-nth
+  [coll n]
+  (keep-indexed
+    #(when (zero? (rem (inc %1) n)) %2)
+    coll))
+
 ; Accepts a curried function of unknown arity n, returning an
 ; equivalent function of n arguments.
 (defn de-curry

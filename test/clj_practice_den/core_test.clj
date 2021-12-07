@@ -93,3 +93,10 @@
          [1 3 2 4] [1 2] [3 4 5 6]
          [1 3] [1] [3 4 5 6]
          [1 3] [1 2] [3])))
+
+(deftest test-keep-every-nth
+  (testing "Keep every nth element of a sequence."
+    (are [expected coll n]
+         (= expected (keep-every-nth coll n))
+         [5 7] '(4 5 6 7) 2
+         [:c :f :i] [:a :b :c :d :e :f :g :h :i] 3)))
