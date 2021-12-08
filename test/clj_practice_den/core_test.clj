@@ -136,3 +136,10 @@
          6 3
          24 4
          120 5)))
+
+(deftest test-split-at
+  (testing "Split a sequence at n."
+    (are [expected n coll]
+         (= expected (core/x-split-at n coll))
+         [[:a] [:b :c :d :e]] 1 [:a :b :c :d :e]
+         [[:a :b :c] [:d :e]] 3 [:a :b :c :d :e])))

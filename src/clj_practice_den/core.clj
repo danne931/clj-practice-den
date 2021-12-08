@@ -125,3 +125,7 @@
        (iterate dec)
        (take n)
        (reduce *)))
+
+; Split a sequence at n
+; Restrictions: split-at
+(def x-split-at (juxt take drop))
