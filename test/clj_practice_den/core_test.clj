@@ -126,3 +126,13 @@
          (= expected (core/keep-every-nth coll n))
          [5 7] '(4 5 6 7) 2
          [:c :f :i] [:a :b :c :d :e :f :g :h :i] 3)))
+
+(deftest test-factorial
+  (testing "Calculate the factorial."
+    (are [expected n]
+         (= expected (core/factorial n))
+         1 0
+         1 1
+         6 3
+         24 4
+         120 5)))

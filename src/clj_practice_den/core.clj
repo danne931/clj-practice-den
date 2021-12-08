@@ -117,3 +117,11 @@
            (when-let [item-b (get seq-b index)]
               (list item-a item-b))))
        flatten))
+
+; Calculate the factorial
+(defn factorial
+  [n]
+  (->> n
+       (iterate dec)
+       (take n)
+       (reduce *)))
