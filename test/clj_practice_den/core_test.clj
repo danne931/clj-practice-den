@@ -96,6 +96,16 @@
     (is (= "Dan"
            (apply str (core/remove-consecutive-dupes "DDDaaaaannnn"))))))
 
+(deftest test-remove-consecutive-dupes-v2
+  (testing "Remove consecutive dupes in a sequence (Implementation 2)"
+    (are [expected coll]
+         (= expected (core/remove-consecutive-dupes-v2 coll))
+         [1 2 3 4] [1 1 1 2 3 3 4 4]
+         '([1 2] [3 4] 5 6) '([1 2] [1 2] [1 2] [3 4] [3 4] 5 5 6)))
+  (testing "Remove consecutive dupes works for strings."
+    (is (= "Dan"
+           (apply str (core/remove-consecutive-dupes-v2 "DDDaaaaannnn"))))))
+
 (deftest test-replicate-each
   (testing "Replicate each element n times."
     (are [expected coll n]

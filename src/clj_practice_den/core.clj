@@ -93,6 +93,14 @@
     []
     coll))
 
+; Remove consecutive duplicates from a sequence
+; Restrictions: use partition-by
+(defn remove-consecutive-dupes-v2
+  [coll]
+  (->> coll
+       (partition-by identity)
+       (map first)))
+
 ; Replicates each element of a sequence n times.
 (defn replicate-each
   [coll n]
