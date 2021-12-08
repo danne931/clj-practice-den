@@ -129,3 +129,6 @@
 ; Split a sequence at n
 ; Restrictions: split-at
 (def x-split-at (juxt take drop))
+
+; Split a sequence into sub-sequences by type
+(def split-by-type #(vals (group-by type %)))

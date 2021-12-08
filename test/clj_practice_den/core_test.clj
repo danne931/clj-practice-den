@@ -143,3 +143,10 @@
          (= expected (core/x-split-at n coll))
          [[:a] [:b :c :d :e]] 1 [:a :b :c :d :e]
          [[:a :b :c] [:d :e]] 3 [:a :b :c :d :e])))
+
+(deftest test-split-by-type
+  (testing "Split a sequence into sub-sequences by type."
+    (are [expected coll]
+         (= (set expected) (set (core/split-by-type coll)))
+         [[:a :b] [1 2]] [:a 1 :b 2]
+         [["a" "b"] [:a :b :c] [[1 2] [3 4]]] [:a "a" :b "b" [1 2] :c [3 4]])))
