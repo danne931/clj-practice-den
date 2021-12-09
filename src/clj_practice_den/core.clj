@@ -149,3 +149,17 @@
     (cons
       value
       (x-iterate (transform value) transform))))
+
+; Creates a lazy sequence of values transformed from an initial value
+; by a variable number of transforms.  The transforms are applied in order
+; and then repeated from the first transform.
+; ex: lazy seq of x, (f1 x), (f2 (f1 x)), (f1 (f2 (f1 x)))...
+(defn oscillating-iterate
+  [value transform & remaining-transforms]
+  (lazy-seq
+    (cons
+      value
+      (apply
+        oscillating-iterate
+        (transform value)
+        (concat remaining-transforms [transform])))))

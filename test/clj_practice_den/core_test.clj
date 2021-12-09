@@ -167,3 +167,13 @@
            (take 5 (core/x-iterate 3 dec))))
     (is (= [3 6 12 24]
            (take 4 (core/x-iterate 3 #(* % 2)))))))
+
+(deftest test-oscillating-iterate
+  (testing "Oscillating iterate"
+    (is (= [1 1.0 2.0 2 2.0 3.0 3 3.0 4.0 4]
+           (take 10 (core/oscillating-iterate 1 double inc int))))
+    (is (= [1 0 1 0 1]
+           (take 5 (core/oscillating-iterate 1 dec inc))))
+    ; Still works with only 1 transform
+    (is (= [1 2 3]
+           (take 3 (core/oscillating-iterate 1 inc))))))
