@@ -160,3 +160,10 @@
          (= (set expected) (set (core/split-by-type coll)))
          [[:a :b] [1 2]] [:a 1 :b 2]
          [["a" "b"] [:a :b :c] [[1 2] [3 4]]] [:a "a" :b "b" [1 2] :c [3 4]])))
+
+(deftest test-iterate
+  (testing "Create an infinite lazy sequence of x, (f x), (f (f x)), ..."
+    (is (= [3 2 1 0 -1]
+           (take 5 (core/x-iterate 3 dec))))
+    (is (= [3 6 12 24]
+           (take 4 (core/x-iterate 3 #(* % 2)))))))

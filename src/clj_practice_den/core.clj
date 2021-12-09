@@ -123,7 +123,7 @@
        (keep-indexed
          (fn [index item-a]
            (when-let [item-b (get seq-b index)]
-              (list item-a item-b))))
+             (list item-a item-b))))
        flatten))
 
 ; Calculate the factorial
@@ -140,3 +140,12 @@
 
 ; Split a sequence into sub-sequences by type
 (def split-by-type #(vals (group-by type %)))
+
+; Create an infinite lazy sequence of x, (f x), (f (f x)), ...
+; Restrictions: iterate
+(defn x-iterate
+  [value transform]
+  (lazy-seq
+    (cons
+      value
+      (x-iterate (transform value) transform))))
