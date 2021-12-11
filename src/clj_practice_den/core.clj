@@ -163,3 +163,12 @@
         oscillating-iterate
         (transform value)
         (concat remaining-transforms [transform])))))
+
+; Compose fns right to left
+; Restrictions: comp
+(defn x-comp
+  ([] identity)
+  ([& fns]
+   (fn [& args]
+     (let [[f1 & fns] (reverse fns)]
+       (reduce #(%2 %1) (apply f1 args) fns)))))

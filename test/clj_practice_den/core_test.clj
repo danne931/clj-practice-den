@@ -177,3 +177,12 @@
     ; Still works with only 1 transform
     (is (= [1 2 3]
            (take 3 (core/oscillating-iterate 1 inc))))))
+
+(deftest test-comp
+  (testing "Compose functions right to left."
+    (is (= [2 1]
+           ((core/x-comp rest reverse) [1 2 3])))
+    (is (= 21
+           ((core/x-comp inc (partial * 2) +) 1 4 5)))
+    (is (= "abc"
+           ((core/x-comp) "abc")))))
