@@ -130,6 +130,15 @@
          [1 3] [1] [3 4 5 6]
          [1 3] [1 2] [3])))
 
+(deftest test-zipmap
+  (testing "Zipmap 2 sequences."
+    (are [expected seq-a seq-b]
+         (= expected (core/x-zipmap seq-a seq-b))
+         {:a 3 :b 4} [:a :b] [3 4]
+         {:a 3 :b 4} [:a :b] [3 4 5 6]
+         {:a 3} [:a] [3 4 5 6]
+         {:a 3} [:a :b] [3])))
+
 (deftest test-keep-every-nth
   (testing "Keep every nth element of a sequence."
     (are [expected coll n]

@@ -126,6 +126,21 @@
              (list item-a item-b))))
        flatten))
 
+; From 2 sequences, take the 1st item of each, then the 2nd & so on.
+; The new form is represented as key-value pairs in a map.
+; Restrictions: zipmap
+(defn x-zipmap
+  [seq-a seq-b]
+  (loop [acc {}
+         [item-a & remaining-a] seq-a
+         [item-b & remaining-b] seq-b]
+    (if (some nil? [item-a item-b])
+      acc
+      (recur
+        (assoc acc item-a item-b)
+        remaining-a
+        remaining-b))))
+
 ; Calculate the factorial
 (defn factorial
   [n]
