@@ -115,31 +115,31 @@
                       #(swap! state inc)))]
     (repeatedly coll-size (increment lower-bound))))
 
+(defn- zippy
+  [reducing-transform]
+  (fn [seq-a seq-b]
+    (loop [acc nil
+           [item-a & remaining-a] seq-a
+           [item-b & remaining-b] seq-b]
+      (if (some nil? [item-a item-b])
+        acc
+        (recur
+          (reducing-transform acc item-a item-b)
+          remaining-a
+          remaining-b)))))
+
 ; From 2 sequences, take the 1st item of each, then the 2nd & so on.
 ; Restrictions: interleave
-(defn x-interleave
-  [seq-a seq-b]
-  (->> seq-a
-       (keep-indexed
-         (fn [index item-a]
-           (when-let [item-b (get seq-b index)]
-             (list item-a item-b))))
-       flatten))
+(def x-interleave
+  (zippy (fn [acc item-a item-b]
+           (concat (or acc []) [item-a item-b]))))
 
 ; From 2 sequences, take the 1st item of each, then the 2nd & so on.
 ; The new form is represented as key-value pairs in a map.
 ; Restrictions: zipmap
-(defn x-zipmap
-  [seq-a seq-b]
-  (loop [acc {}
-         [item-a & remaining-a] seq-a
-         [item-b & remaining-b] seq-b]
-    (if (some nil? [item-a item-b])
-      acc
-      (recur
-        (assoc acc item-a item-b)
-        remaining-a
-        remaining-b))))
+(def x-zipmap
+  (zippy (fn [acc item-a item-b]
+           (assoc (or acc {}) item-a item-b))))
 
 ; Calculate the factorial
 (defn factorial
