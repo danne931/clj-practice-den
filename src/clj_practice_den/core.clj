@@ -107,6 +107,7 @@
   (reduce #(into %1 (take n (repeat %2))) [] coll))
 
 ; Creates a list of integers in a range.
+; Restrictions: range, iterate
 (defn x-range
   [lower-bound upper-bound]
   (let [coll-size (- upper-bound lower-bound)
@@ -114,6 +115,10 @@
                     (let [state (atom (dec start-counter))]
                       #(swap! state inc)))]
     (repeatedly coll-size (increment lower-bound))))
+
+(defn x-range-v2
+  [lower-bound upper-bound]
+  (take (- upper-bound lower-bound) (iterate inc lower-bound)))
 
 (defn- zippy
   [reducing-transform]

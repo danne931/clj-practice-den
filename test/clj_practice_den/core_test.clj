@@ -121,6 +121,13 @@
          [-2 -1 0 1] -2 2
          [0 1 2 3] 0 4)))
 
+(deftest test-range-v2
+  (testing "Create a list of integers in a range (Implementation 2)."
+    (are [expected lower-bound upper-bound]
+         (= expected (core/x-range-v2 lower-bound upper-bound))
+         [-2 -1 0 1] -2 2
+         [0 1 2 3] 0 4)))
+
 (deftest test-interleave
   (testing "Interleave 2 sequences."
     (are [expected seq-a seq-b]
