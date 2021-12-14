@@ -78,6 +78,13 @@
          32 [1 2 3] [4 5 6]
          256 [2 5 6] [100 10 1])))
 
+(deftest test-dot-product-v2
+  (testing "Compute the dot product of 2 sequences. (Implementation 2)"
+    (are [expected seq-a seq-b]
+         (= expected (core/dot-product-v2 seq-a seq-b))
+         32 [1 2 3] [4 5 6]
+         256 [2 5 6] [100 10 1])))
+
 (deftest test-flatten
   (testing "Flatten a sequence."
     (are [expected coll]

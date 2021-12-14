@@ -74,14 +74,6 @@
        rest
        (remove sequential?)))
 
-; Computes the dot product of two sequences, assuming the vectors
-; have the same length.
-(defn dot-product
-  [seq-a seq-b]
-  (->> seq-a
-       (map-indexed #(* %2 (get seq-b %1)))
-       (reduce +)))
-
 ; Remove consecutive duplicates from a sequence.
 (defn remove-consecutive-dupes
   [coll]
@@ -145,6 +137,18 @@
 (def x-zipmap
   (zippy (fn [acc item-a item-b]
            (assoc (or acc {}) item-a item-b))))
+
+; Computes the dot product of two sequences, assuming the vectors
+; have the same length.
+(defn dot-product
+  [seq-a seq-b]
+  (->> seq-a
+       (map-indexed #(* %2 (get seq-b %1)))
+       (reduce +)))
+
+(def dot-product-v2
+  (zippy (fn [acc item-a item-b]
+           (+ (or acc 0) (* item-a item-b)))))
 
 ; Calculate the factorial
 (defn factorial
